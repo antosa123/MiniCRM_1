@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <!--copia del tema themeroller para la aplicacion-->
+        <link rel="stylesheet" href="./jquery/MiniCRM-theme.min.css" />
+        <link rel="stylesheet" href="./jquery/jquery.mobile.icons.min.css" />
+        <!--Hoja de estilos / CSS de JQuery mobile--> 
+        <link rel="stylesheet" href="./jquery/jquery.mobile.structure-1.4.5.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/elementos.css" />
+        <title>formulario</title>
+    </head>
+    <body>
+        <!--NUEVO CLIENTE -->
+            <div data-role="page" id="formulario">
+              <div data-role="header">
+                <h1>NUEVO CLIENTE</h1>
+              </div>
+              <div class="ui-field-contain formulario">
+                <img src="./img/contacto.png" class="imagenLista">
+                <img src="./img/foto.png" class="imagenFoto">
+                <P><br>
+                Nombre<br>
+                <input type="text" name="nombre" id="nombre" >
+                Cargo<br>
+                <input type="text" name="cargo" id="cargo" >
+                Ciudad<br>
+                <input type="text" name="ciudad" id="ciudad" >
+              </p>
+            </div>
+            <!--checkbox redes sociales-->
+            <div class="ui-field-contain botones">
+             <fieldset data-role="controlgroup">
+              <legend>Usa:</legend>
+                  <label for="fb">Facebook</label>
+                  <input type="checkbox" name="redsocial" id="fb" value="fb">
+                  <label for="twitter">Twitter</label>
+                  <input type="checkbox" name="redsocial" id="twitter" value="twitter"> 
+              </fieldset>
+             </div>
+             <!--boton guardar-->
+             <div class="ui-field-contain guardar">
+                <input type="submit" value="Guardar" data-mini="true">
+                <p><a href="#home">HOME</a></p>
+             </div>
+           </div>
+           
+        <script type="text/javascript" src="jquery/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="jquery/jquery.mobile-1.4.5.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            //app.initialize();
+        </script>
+    </body>
+</html>
