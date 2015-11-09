@@ -19,23 +19,46 @@
  var confDB = {
     existe_db:"",
     initialize: function(){
-
+    //abrir base de datos
+    this.db=window.openDatabase("localDB","1.0","Base de datos miniCRM",2*1024*1024);
     existe_db=window.localStorage.getItem("existe_db");
     if(existe_db==null){
-        navigator.notification.confirm(
-            'La base de datos no existe',
-            this.onConfirm,
-            'Base de datos',
-            ['Crear','Salir']
-            );
+       console.log("No existe Base de Datos");
+       this.createDB();
     }
 },
+    createDB:function(){
+        console.log("Creamos la base de datos")
+        //transaccion
+        this.db.transaction(createLocalDB,createDBError,createDBSucc);
+    },
+    createLocalDB:function(tx){
+        var sql="CREATE TABLE IF NOT EXIST localDB ("+
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, "+
+            "nombre VARCHAR(50),"+
+            "apellido VARCHAR(256),"+
+            "cargo VARCHAR(256),"+
+            "ciudad VARCHAR(128),"+
+            "email VARCHAR(64) )";
 
-    onConfirm:function (buttonIndex){
-        if(buttonIndex==1){
-            window.localStorage.setItem("existe_db",1);
-        }
+        tx.executeSql(sql);
 
+        //Insertamos valores de ejemplo
+        sqp="INSERT INTO localDB(id,nombre,apellido,cargo,ciudad,email)"+
+            " VALUES(1,'Jose','Ortiz','Desarollador','Bilbao','josort@mail.com')";
+        tx.executeSql(sql);
+
+        sqp="INSERT INTO localDB(id,nombre,apellido,cargo,ciudad,email)"+
+            " VALUES(1,'Mark','Zuckerberg','Panadero','Nueva York','markitos@baker.com')";   
+        tx.executeSql(sql);    
+    },
+    createDBError:function(err){
+        console.log("Se ha producido un error en la creación de la base de datos: "+error.code);
+
+    },
+    createDBSucc:function(){
+        console.log("Se ha generado la base de datos con éxito");
+        window.localStorage.setItem("existe_db",1);
     }
 
 };
