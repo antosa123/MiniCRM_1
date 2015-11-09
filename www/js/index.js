@@ -18,42 +18,45 @@
  */
  var confDB = {
     existe_db:"",
+    db:"",
     initialize: function(){
     //abrir base de datos
     this.db=window.openDatabase("localDB","1.0","Base de datos miniCRM",2*1024*1024);
-    existe_db=window.localStorage.getItem("existe_db");
-    if(existe_db==null){
-       console.log("No existe Base de Datos");
-       this.createDB();
-    }
-},
-    createDB:function(){
-        console.log("Creamos la base de datos")
-        //transaccion
-        this.db.transaction(createLocalDB,createDBError,createDBSucc);
+    this.existe_db=window.localStorage.getItem("existe_db");
+        if(this.existe_db==null){
+            console.log("No existe Base de Datos");
+            this.createDB();
+        }
     },
+
+    createDB:function(){
+        console.log("Creamos la base de datos");
+        //transaccion
+        this.db.transaction(this.createLocalDB,this.createDBError,this.createDBSucc);
+    },
+
     createLocalDB:function(tx){
-        var sql="CREATE TABLE IF NOT EXIST localDB ("+
+        var sql="CREATE TABLE IF NOT EXISTS localDB ("+
             "id INTEGER PRIMARY KEY AUTOINCREMENT, "+
-            "nombre VARCHAR(50),"+
-            "apellido VARCHAR(256),"+
-            "cargo VARCHAR(256),"+
-            "ciudad VARCHAR(128),"+
-            "email VARCHAR(64) )";
+            "nombre VARCHAR(50), "+
+            "apellido VARCHAR(256), "+
+            "cargo VARCHAR(256), "+
+            "ciudad VARCHAR(128), "+
+            "email VARCHAR(64) );";
 
         tx.executeSql(sql);
 
         //Insertamos valores de ejemplo
-        sqp="INSERT INTO localDB(id,nombre,apellido,cargo,ciudad,email)"+
-            " VALUES(1,'Jose','Ortiz','Desarollador','Bilbao','josort@mail.com')";
-        tx.executeSql(sql);
+        var insert1="INSERT INTO localDB(nombre, apellido, cargo, ciudad, email)"+
+            " VALUES('Jose', 'Ortiz', 'Desarollador', 'Bilbao', 'josort@mail.com')";
+        tx.executeSql(insert1);
 
-        sqp="INSERT INTO localDB(id,nombre,apellido,cargo,ciudad,email)"+
-            " VALUES(1,'Mark','Zuckerberg','Panadero','Nueva York','markitos@baker.com')";   
-        tx.executeSql(sql);    
+        var insert2="INSERT INTO localDB(nombre, apellido, cargo, ciudad, email)"+
+            " VALUES('Mark', 'Zuckerberg','Panadero', 'Nueva York', 'markitos@baker.com')";   
+        tx.executeSql(insert2);    
     },
     createDBError:function(err){
-        console.log("Se ha producido un error en la creación de la base de datos: "+error.code);
+        console.log("Se ha producido un error en la creación de la base de datos: "+err.code);
 
     },
     createDBSucc:function(){
