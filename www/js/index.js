@@ -111,8 +111,24 @@
         tx.executeSql(insert1);
 
         var insert2="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email,ultimos)"+
-            " VALUES('Mark', 'Zuckerberg','Panadero', 'Nueva York', 'markitos@baker.com',0)";   
+            " VALUES('Pedro', 'Zuckerberg','Panadero', 'Londres', 'pedro@p.es',0)";   
         tx.executeSql(insert2);   
+
+        var insert2="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email,ultimos)"+
+            " VALUES('Jorge', 'Zuckerberg','Maestro', 'Madrid', 'george@ggg.com',0)";   
+        tx.executeSql(insert2); 
+
+        var insert2="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email,ultimos)"+
+            " VALUES('Pablo', 'Zuckerberg','Dependiente', 'Valencia', 'pablo_22@hh.es',1)";   
+        tx.executeSql(insert2); 
+
+        var insert2="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email,ultimos)"+
+            " VALUES('Adrian', 'Zuckerberg','Abogado', 'Cali', 'adri_90@jiji.com',1)";   
+        tx.executeSql(insert2); 
+
+        var insert2="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email,ultimos)"+
+            " VALUES('Gonzalo', 'Zuckerberg','futbolista', 'Shangai', 'gonzi@gmail.com',0)";   
+        tx.executeSql(insert2); 
 
 
     },
