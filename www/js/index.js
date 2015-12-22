@@ -100,18 +100,21 @@
             "apellido VARCHAR(256), "+
             "cargo VARCHAR(256), "+
             "ciudad VARCHAR(128), "+
-            "email VARCHAR(64) );";
+            "email VARCHAR(64), "+
+            "ultimos NUMERIC(1) );";
 
         tx.executeSql(sql);
 
         //Insertamos valores de ejemplo
-        var insert1="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email)"+
-            " VALUES('Jose', 'Ortiz', 'Desarollador', 'Bilbao', 'josort@mail.com')";
+        var insert1="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email,ultimos)"+
+            " VALUES('Jose', 'Ortiz', 'Desarollador', 'Bilbao', 'josort@mail.com',1)";
         tx.executeSql(insert1);
 
-        var insert2="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email)"+
-            " VALUES('Mark', 'Zuckerberg','Panadero', 'Nueva York', 'markitos@baker.com')";   
-        tx.executeSql(insert2);    
+        var insert2="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email,ultimos)"+
+            " VALUES('Mark', 'Zuckerberg','Panadero', 'Nueva York', 'markitos@baker.com',0)";   
+        tx.executeSql(insert2);   
+
+
     },
     createDBError:function(err){
         console.log("Se ha producido un error en la creación de la base de datos: "+err.code);
