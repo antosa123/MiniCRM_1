@@ -43,10 +43,8 @@
                             //actualizaría automaticamente mi html
                             
                             console.log("ROW "+i+" nombre: "+fila.nombre);
-                           
-                            $("#listaContactos ul").append("<li><a href='detallesAdri.html' data-ajax='false'><img src='./img/paco.png' class='imagenLista'><div class='nombreLista'>"+fila.nombre+"</div><div class='profesionLista'>"+fila.cargo+"</div></a></li>").listview('refresh');
-                            /*$("#listaContactos ul").append("<li><a href='detallesMark.html' data-ajax='false'><img src='./img/rubio.png' class='imagenLista'><div class='nombreLista'>"+fila.nombre+"</div><div class='profesionLista'>panadero</div></a></li>").listview('refresh');*/
-                            
+                           //se añaden los contactos en la lista
+                            $("#listaContactos ul").append("<li><a href='detallesAdri.html' data-ajax='false'><img src='./img/turtle.png' class='imagenLista'><div class='nombreLista'>"+fila.nombre+"</div><div class='profesionLista'>"+fila.cargo+"</div></a></li>").listview('refresh');
                         }
                     }
                 },
@@ -106,15 +104,16 @@
         tx.executeSql(sql);
 
         //Insertamos valores de ejemplo
-        var insert1="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email,ultimos)"+
-            " VALUES('Jose', 'Ortiz', 'Desarollador', 'Bilbao', 'josort@mail.com',1)";
-        tx.executeSql(insert1);
+        
+        var insert2="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email,ultimos)"+
+            " VALUES('Adrian', 'Zuckerberg','Abogado', 'Cali', 'adri_90@jiji.com',1)";   
+        tx.executeSql(insert2); 
 
         var insert2="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email,ultimos)"+
             " VALUES('Pedro', 'Zuckerberg','Panadero', 'Londres', 'pedro@p.es',0)";   
         tx.executeSql(insert2);   
 
-        var insert2="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email,ultimos)"+
+        /*var insert2="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email,ultimos)"+
             " VALUES('Jorge', 'Zuckerberg','Maestro', 'Madrid', 'george@ggg.com',0)";   
         tx.executeSql(insert2); 
 
@@ -122,13 +121,13 @@
             " VALUES('Pablo', 'Zuckerberg','Dependiente', 'Valencia', 'pablo_22@hh.es',1)";   
         tx.executeSql(insert2); 
 
-        var insert2="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email,ultimos)"+
-            " VALUES('Adrian', 'Zuckerberg','Abogado', 'Cali', 'adri_90@jiji.com',1)";   
-        tx.executeSql(insert2); 
+        var insert1="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email,ultimos)"+
+            " VALUES('Jose', 'Ortiz', 'Desarollador', 'Bilbao', 'josort@mail.com',1)";
+        tx.executeSql(insert1);
 
         var insert2="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email,ultimos)"+
             " VALUES('Gonzalo', 'Zuckerberg','futbolista', 'Shangai', 'gonzi@gmail.com',0)";   
-        tx.executeSql(insert2); 
+        tx.executeSql(insert2); */
 
 
     },
