@@ -29,10 +29,10 @@
             this.db.transaction(this.mostrarDB,this.mostrarDBError);
       },
        mostrarDB:function(tx){
-            var sql="SELECT * FROM contactos;";
+            var sql="SELECT * FROM contactos ORDER BY ultimos DESC;";
             console.log("Lanzamos la consulta");
              tx.executeSql(
-                "SELECT * FROM contactos;",
+                sql,
                 [],
                 //funcion de resultado OK
                 function(tx,result){
@@ -44,7 +44,7 @@
                             
                             console.log("ROW "+i+" nombre: "+fila.nombre);
                            
-                            $("#listaContactos ul").append("<li><a href='detalles.html' data-ajax='false'><img src='./img/paco.png' class='imagenLista'><div class='nombreLista'>"+fila.nombre+"</div><div class='profesionLista'>"+fila.cargo+"</div></a></li>").listview('refresh');
+                            $("#listaContactos ul").append("<li><a href='detallesAdri.html' data-ajax='false'><img src='./img/paco.png' class='imagenLista'><div class='nombreLista'>"+fila.nombre+"</div><div class='profesionLista'>"+fila.cargo+"</div></a></li>").listview('refresh');
                             /*$("#listaContactos ul").append("<li><a href='detallesMark.html' data-ajax='false'><img src='./img/rubio.png' class='imagenLista'><div class='nombreLista'>"+fila.nombre+"</div><div class='profesionLista'>panadero</div></a></li>").listview('refresh');*/
                             
                         }
