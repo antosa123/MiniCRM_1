@@ -16,27 +16,85 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+  var cargarDB = {
+     db:"",
+     initialize: function(){
+          //Generamos el conector
+          this.db=window.openDatabase("localDB","1.0","Base de datos miniCRM",2*1024*1024);
+          this.cargaDB();
+        },
+        cargaDB:function(){
+             console.log("Cargar la base de datos");
+                //transaccion
+            this.db.transaction(this.mostrarDB,this.mostrarDBError);
+      },
+       mostrarDB:function(tx){
+            var sql="SELECT * FROM contactos;";
+            console.log("Lanzamos la consulta");
+             tx.executeSql(
+                "SELECT * FROM contactos;",
+                [],
+                //funcion de resultado OK
+                function(tx,result){
+                    console.log("Se ha realizado la consulta con éxito");
+                    if(result.rows.length>0){
+                        for (var i=0;i<result.rows.length;i++){
+                            var fila=result.rows.item(i);
+                            //actualizaría automaticamente mi html
+                            
+                            console.log("ROW "+i+" nombre: "+fila.nombre);
+                           
+                            $("#listaContactos ul").append("<li><a href='detalles.html' data-ajax='false'><img src='./img/paco.png' class='imagenLista'><div class='nombreLista'>"+fila.nombre+"</div><div class='profesionLista'>"+fila.cargo+"</div></a></li>").listview('refresh');
+                            /*$("#listaContactos ul").append("<li><a href='detallesMark.html' data-ajax='false'><img src='./img/rubio.png' class='imagenLista'><div class='nombreLista'>"+fila.nombre+"</div><div class='profesionLista'>panadero</div></a></li>").listview('refresh');*/
+                            
+                        }
+                    }
+                },
+                //funcion de error
+                function(tx,error){
+                    this.mostrarDBError(error);
+                }
+             );
+       },
+       mostrarDBError:function(err){
+        console.log("Se ha producido un al mostrar la base de datos: "+err.code);
+        console.log("MENSAJE DE ERROR: "+err.message);
+    }
+       
+
+  };
  var confDB = {
     existe_db:"",
     db:"",
     initialize: function(){
+        //variable existe db
+        this.existe_db=window.localStorage.getItem("existe_db");
+        console.log("COMPROBANDO BASE DE DATOS");
     //abrir base de datos
-    this.db=window.openDatabase("localDB","1.0","Base de datos miniCRM",2*1024*1024);
-    this.existe_db=window.localStorage.getItem("existe_db");
-        if(this.existe_db==null){
-            console.log("No existe Base de Datos");
+    if(this.existe_db!=1){
+        console.log("BASE DE DATOS NO DETECTADA");
+            
             this.createDB();
+            cargarDB.initialize();
+        }else{
+            console.log("BASE DE DATOS DETECTADA");
+            //Base de datos creada
+            cargarDB.initialize();
         }
     },
+
 
     createDB:function(){
         console.log("Creamos la base de datos");
         //transaccion
+        this.db=window.openDatabase("localDB","1.0","Base de datos miniCRM",2*1024*1024);
         this.db.transaction(this.createLocalDB,this.createDBError,this.createDBSucc);
     },
 
     createLocalDB:function(tx){
-        var sql="CREATE TABLE IF NOT EXISTS localDB ("+
+        tx.executeSql("DROP TABLE IF EXISTS contactos");
+
+        var sql="CREATE TABLE IF NOT EXISTS contactos ("+
             "id INTEGER PRIMARY KEY AUTOINCREMENT, "+
             "nombre VARCHAR(50), "+
             "apellido VARCHAR(256), "+
@@ -47,11 +105,11 @@
         tx.executeSql(sql);
 
         //Insertamos valores de ejemplo
-        var insert1="INSERT INTO localDB(nombre, apellido, cargo, ciudad, email)"+
+        var insert1="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email)"+
             " VALUES('Jose', 'Ortiz', 'Desarollador', 'Bilbao', 'josort@mail.com')";
         tx.executeSql(insert1);
 
-        var insert2="INSERT INTO localDB(nombre, apellido, cargo, ciudad, email)"+
+        var insert2="INSERT INTO contactos(nombre, apellido, cargo, ciudad, email)"+
             " VALUES('Mark', 'Zuckerberg','Panadero', 'Nueva York', 'markitos@baker.com')";   
         tx.executeSql(insert2);    
     },
@@ -88,8 +146,6 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
        
-       //lanzamos la config de la base de datos
-        confDB.initialize();
 
      //alerta de arranque 
         navigator.notification.alert(
@@ -99,6 +155,8 @@ var app = {
             'Perfecto'                  // buttonName
         );
 
+        //lanzamos la config de la base de datos
+        confDB.initialize();
     },
     alertDismissed:function()  {
             // do something
